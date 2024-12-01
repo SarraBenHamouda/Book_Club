@@ -6,6 +6,7 @@ const router = express.Router();
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
 
+  // Validate input
   if (!email || !password) {
     return res.status(400).json({ error: 'Email and password are required' });
   }
@@ -17,12 +18,12 @@ router.post('/login', async (req, res) => {
       return res.status(400).json({ error: 'Invalid email or password' });
     }
 
-    // Compare the password with the stored password (Note: Password should be hashed in production)
-    if (user.password !== password) {  // In real-life scenarios, compare hashed passwords
+    // Compare the plain text entered password with the stored password
+    if (user.password !== password) {
       return res.status(400).json({ error: 'Invalid email or password' });
     }
 
-    // On successful login, return the user information (consider generating JWT token)
+    // On successful login, return user info
     res.status(200).json({
       message: 'Login successful',
       user: {
