@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getBooks, deleteBook, updateBook } from '../utils/api';
 import { useNavigate } from 'react-router-dom';
-import backgroundImage from '../images/list.jpg'; // Import the background image
+import backgroundImage from '../images/list.jpg';
 
 const BookList = ({ onLogout }) => {
   const [books, setBooks] = useState([]);
@@ -62,15 +62,24 @@ const BookList = ({ onLogout }) => {
     }
   };
 
+  const handleFavoriteBook = (bookId) => {
+    const favoriteBook = books.find((book) => book._id === bookId);
+    if (favoriteBook) {
+      const updatedBooks = [favoriteBook, ...books.filter((book) => book._id !== bookId)];
+      setBooks(updatedBooks);
+      alert(`${favoriteBook.title} is marked as your favorite!`);
+    }
+  };
+
   return (
     <div
       style={{
-        backgroundImage: `url(${backgroundImage})`, // Set the background image
-        backgroundSize: 'cover', // Make the image cover the container
-        backgroundPosition: 'center', // Center the image
-        minHeight: '100vh', // Full page height
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
         padding: '20px',
-        color: 'white', // White text for contrast
+        color: 'white',
       }}
     >
       <h2>Your Favorite Books Are Here! &#x1F4D6;</h2>
@@ -86,7 +95,7 @@ const BookList = ({ onLogout }) => {
             <li
               key={book._id}
               style={{
-                backgroundColor: 'rgba(0, 0, 0, 0.6)', // Semi-transparent background for readability
+                backgroundColor: 'rgba(0, 0, 0, 0.6)',
                 padding: '10px',
                 marginBottom: '10px',
                 borderRadius: '8px',
@@ -171,8 +180,17 @@ const BookList = ({ onLogout }) => {
                   >
                     Update &#x2B55;
                   </button>
-                  <button onClick={() => handleDeleteBook(book._id)}>
+                  <button
+                    onClick={() => handleDeleteBook(book._id)}
+                    style={{ marginRight: '10px' }}
+                  >
                     Delete &#x274C;
+                  </button>
+                  <button
+                    onClick={() => handleFavoriteBook(book._id)}
+                    style={{ marginRight: '10px' }}
+                  >
+                    Favorite &#x1F338;
                   </button>
                 </div>
               )}
