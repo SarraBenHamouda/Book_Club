@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Hook to navigate after registration
-import axios from 'axios'; // Import axios for making HTTP requests
+import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import backgroundImage from '../images/background.png'; // Adjust the path if necessary
 
 const Register = () => {
   const [firstName, setFirstName] = useState('');
@@ -8,16 +9,14 @@ const Register = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
-  const navigate = useNavigate(); // Used to navigate after successful registration
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
 
-    // Clear any previous errors
     setError(null);
 
     try {
-      // Send the registration data to the backend via a POST request
       const response = await axios.post('http://localhost:8000/api/auth/register', {
         firstName,
         lastName,
@@ -25,53 +24,116 @@ const Register = () => {
         password,
       });
 
-      // If the response status is 201 (created), registration was successful
       if (response.status === 201) {
         alert('Registration successful!');
-        navigate('/books'); // Redirect to login page after successful registration
+        navigate('/books');
       }
     } catch (err) {
-      // Handle any errors that occur (e.g., user already exists, missing fields)
       console.error('Registration error:', err.response ? err.response.data : err);
       setError(err.response ? err.response.data.error : 'Registration failed, please try again.');
     }
   };
 
   return (
-    <div className="register-container">
-      <h2>Register</h2>
-      {error && <p className="error">{error}</p>} {/* Display any error messages */}
-      <form onSubmit={handleRegister}>
-        <input
-          type="text"
-          placeholder="First Name"
-          value={firstName}
-          onChange={(e) => setFirstName(e.target.value)}
-          required
-        />
-        <input
-          type="text"
-          placeholder="Last Name"
-          value={lastName}
-          onChange={(e) => setLastName(e.target.value)}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <button type="submit">Register</button>
-      </form>
+    <div
+      style={{
+        backgroundImage: `url(${backgroundImage})`, // Set the background image
+        backgroundSize: 'cover', // Cover the entire screen with the image
+        backgroundPosition: 'center', // Center the image
+        minHeight: '100vh', // Full viewport height
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        padding: '20px',
+      }}
+    >
+      <div
+        style={{
+          maxWidth: '400px',
+          width: '100%',
+          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Semi-transparent background for contrast
+          padding: '20px',
+          borderRadius: '8px',
+          color: 'white',
+          textAlign: 'center',
+        }}
+      >
+        <h2>Register &#x1F3C3;</h2>
+        {error && <p style={{ color: 'pink' }}>{error}</p>}
+        <form onSubmit={handleRegister}>
+          <input
+            type="text"
+            placeholder="First Name"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+            required
+            style={{
+              width: '100%',
+              padding: '10px',
+              marginBottom: '10px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+            }}
+          />
+          <input
+            type="text"
+            placeholder="Last Name"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+            required
+            style={{
+              width: '100%',
+              padding: '10px',
+              marginBottom: '10px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+            }}
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            style={{
+              width: '100%',
+              padding: '10px',
+              marginBottom: '10px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+            }}
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            style={{
+              width: '100%',
+              padding: '10px',
+              marginBottom: '10px',
+              borderRadius: '4px',
+              border: '1px solid #ccc',
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              width: '100%',
+              padding: '10px',
+              backgroundColor: '#DBB5B5',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
+          >
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

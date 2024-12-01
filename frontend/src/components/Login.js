@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import backgroundImage from '../images/background.png'; // Adjust the path as needed
 
 const Login = ({ onLogin }) => {
   const [email, setEmail] = useState('');
@@ -30,20 +31,20 @@ const Login = ({ onLogin }) => {
 
   return (
     <div
-    style={{
-      backgroundSize: 'cover', // Cover the entire screen with the image
-      backgroundPosition: 'center', // Center the image
-      minHeight: '100vh', // Full page height
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'column',
-      color: 'white', // Optional: to make the text stand out against the background
-      padding: '20px',
-    }}
-  >
-  
-      <h2>Login</h2>
+      style={{
+        backgroundImage: `url(${backgroundImage})`, // Add the background image
+        backgroundSize: 'cover', // Cover the entire screen with the image
+        backgroundPosition: 'center', // Center the image
+        minHeight: '100vh', // Full page height
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        color: 'white', // Optional: to make the text stand out against the background
+        padding: '20px',
+      }}
+    >
+      <h2>Welcome To Bookly &#x1F64B;</h2>
       {error && <p style={{ color: 'pink' }}>{error}</p>}
       <form onSubmit={handleLogin} style={{ maxWidth: '400px', width: '100%', backgroundColor: 'rgba(0, 0, 0, 0.5)', padding: '20px', borderRadius: '8px' }}>
         <div>
@@ -70,7 +71,7 @@ const Login = ({ onLogin }) => {
       </form>
 
       <p style={{ marginTop: '10px' }}>
-        Don't have an account? <a href="/register" style={{ color: '#DBB5B5' }}>Register here</a>
+        OH you Don't have an account? <a href="/register" style={{ color: '#DBB5B5' }}>Register here &#x1F647;</a>
       </p>
     </div>
   );

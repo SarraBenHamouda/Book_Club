@@ -14,7 +14,8 @@ const LoginPage = () => {
 
   return (
     <div>
-      <h2>Login</h2>
+
+      <h2>Welcome To Bookly </h2>
       <form onSubmit={handleLogin}>
         <input
           type="email"
