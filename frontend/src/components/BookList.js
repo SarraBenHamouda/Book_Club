@@ -7,6 +7,7 @@ const BookList = ({ onLogout }) => {
   const [books, setBooks] = useState([]);
   const [editingBookId, setEditingBookId] = useState(null);
   const [editedBook, setEditedBook] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');  // Added state for search query
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -21,6 +22,16 @@ const BookList = ({ onLogout }) => {
 
     fetchBooks();
   }, []);
+
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Filter books based on the search query
+  const filteredBooks = books.filter((book) =>
+    book.title.toLowerCase().includes(searchQuery.toLowerCase())  // Case-insensitive search
+  );
 
   const handleEditBook = (book) => {
     setEditingBookId(book._id);
@@ -83,15 +94,30 @@ const BookList = ({ onLogout }) => {
       }}
     >
       <h2>Your Favorite Books Are Here! &#x1F4D6;</h2>
+      
+      {/* Search Bar */}
       <div style={{ marginBottom: '20px' }}>
+        <input
+          type="text"
+          placeholder="Search by title &#x1F50D;"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          style={{
+            padding: '8px',
+            width: '300px',
+            borderRadius: '4px',
+            marginRight: '10px',
+          }}
+        />
         <button onClick={onLogout} style={{ marginRight: '10px' }}>
           Logout &#x1F3C3;
         </button>
         <button onClick={() => navigate('/add-book')}>Add Book &#x1F4DA;</button>
       </div>
+
       <ul style={{ listStyleType: 'none', padding: 0 }}>
-        {books.length > 0 ? (
-          books.map((book) => (
+        {filteredBooks.length > 0 ? (
+          filteredBooks.map((book) => (
             <li
               key={book._id}
               style={{
