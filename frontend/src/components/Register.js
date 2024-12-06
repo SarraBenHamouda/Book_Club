@@ -26,7 +26,7 @@ const Register = () => {
 
       if (response.status === 201) {
         alert('Registration successful!');
-        navigate('/login');
+        navigate('/');
       }
     } catch (err) {
       console.error('Registration error:', err.response ? err.response.data : err);
